@@ -47,6 +47,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'signup.apps.SignupConfig',
+    'payment.apps.PaymentConfig',
+    'main.apps.MainConfig',
 ]
 
 ROOT_URLCONF = 'squarehackathon.urls'
