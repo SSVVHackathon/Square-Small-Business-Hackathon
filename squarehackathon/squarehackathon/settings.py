@@ -71,6 +71,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'signup.Account'
+
 WSGI_APPLICATION = 'squarehackathon.wsgi.application'
 
 
