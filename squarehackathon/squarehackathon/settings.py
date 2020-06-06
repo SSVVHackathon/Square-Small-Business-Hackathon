@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'signup',
+    'payment',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -47,10 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'signup.apps.SignupConfig',
-    'payment.apps.PaymentConfig',
-    'main.apps.MainConfig',
 ]
 
 ROOT_URLCONF = 'squarehackathon.urls'
@@ -71,7 +70,6 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'signup.Account'
 
 WSGI_APPLICATION = 'squarehackathon.wsgi.application'
 
@@ -124,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+AUTH_USER_MODEL = 'signup.MyUser'
+
