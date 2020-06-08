@@ -1,10 +1,16 @@
-from django.shortcuts import render
-from geopy import geocoders
-# Create your views here.
+from django.shortcuts import render, redirect
+from .forms import signupForm
+from django.contrib.auth import login, authenticate
 
-
-g = geocoders.Nominatim()
-
-#include this line within signup
-
-thing = g.geocode(address)
+def signup_view(request):
+    form = signupForm(request.POST)
+    if form.is_valid():
+        form.save()
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(email=email, password=password)
+        login(request, user)
+        return redirect('home')
+    else:
+        form = signupForm()
+    return render(request, 'signup.html', {'form': form})
