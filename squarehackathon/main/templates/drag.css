@@ -1,0 +1,36 @@
+body {
+    background:hotpink;
+}
+
+.fill {
+    background:purple;
+    position: relative;
+
+    height: 40px;
+    width: 150px;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+.empty {
+    display:inline-block;
+    height:50px;
+    width:160px;
+    margin: 10px;
+    border: 3px salmon-solid;
+    background-color: white;
+}
+
+.hold {
+    border: solid #ccc 4px;
+}
+
+.hovered {
+    background: #feffac;
+    border-style:dashed;
+}
+
+.invisible {
+    display:none;
+}
