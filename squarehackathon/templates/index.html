@@ -81,6 +81,7 @@
             alert('Encountered errors, check browser developer console for more details');
             return;
           }
+          alert(nonce)
           fetch('process-payment', {
             method: 'POST',
             headers: {
