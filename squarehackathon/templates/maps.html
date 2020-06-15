@@ -1,6 +1,4 @@
-{%extends 'base.html'%}
-//make a base.html,this code does not work yet but once the thing is set up
-{%block map%}
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -18,39 +16,41 @@
 <div id="map"></div> 
 
 <script>
- 
-    function initMap(){
+     function initMap(){
         var options ={
-            zoom:5,
-            center:{lat:39.8283,lng:-98.5795}
+            zoom:9,
+            center:{lat:42.033360,lng:-88.083405}
         };
         var map = new google.maps.Map(document.getElementById('map'), options);
 
+        addMarker({
+            coords:{lat:42.048020,lng:-88.106670}, 
+            content:'<h1>Hot Breads Schaumburg</h1><p>1065 W Golf Rd Hoffman Estates, IL 60169</p><br><p>Hours of Operation: 7 Days 10 AM to 10 PM</p><br><p>Phone Number: 847-882-8883</p>'
+        });
+        addMarker({
+            coords:{lat:41.780000,lng:-88.187050},
+            content:'<h1>Hot Breads Naperville </h1><p>1603 N. Aurora Rd, Ste. 113 Naperville, IL 60563</p><br><p>Hours of Operation: 7 Days 10 AM to 10 PM</p><br><p>Phone Number: 630-369-7482</p>'
+        });
+        addMarker({
+            coords:{lat:42.123210,lng:-87.936280},
+            content:'<h1>Hot Breads Prospect Heights</h1><p>1201D N. Elmhurst Rd Prospect Heights, IL 60070</p><br><p>Hours of Operation: 7 Days 10 AM to 10 PM</p><br><p>Phone Number: 847-947-8253</p>'
+        });
 
         function addMarker(props) {
+            console.log('im runin');
+            console.log(props.coords);
             var marker = new google.maps.Marker({
             position:props.coords,
             map:map
-
         });
-           // var infoWindow = new google.maps.InfoWindow({
-           //     content:'<p>'+content+'</p>'
-            //});
+            var infoWindow = new google.maps.InfoWindow({
+                content:props.content
+            });
             marker.addListener('click', function(){
                 infoWindow.open(map, marker);
             });
         }
-        var dict = "{{companies|safe}}"
-        console.log(dict)
-        var my = dict.replace(/'/g, '"');
-        console.log(my)
-        var dictBetter = my.toString()
-        console.log(dictBetter)
-        var god = JSON.parse(dictBetter);
-        console.log(god[0].address)
-        for(let x=0;x<god.length;x++){
-            addMarker({coords:{lat:god[x].lat, lng:god[x].lng}})
-        }
+
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdGZWcX8NeOm5jDClKiQuaLxwCV128Wu8&callback=initMap"
@@ -78,5 +78,3 @@
             </script>
         {%endif%}
     {%endfor%} -->
-
-{%endblock%}
