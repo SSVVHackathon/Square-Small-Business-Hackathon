@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 def checkout(request):
     context = {}
-    return render(request, "index.html", context)
+    return render(request, "checkout.html", context)
