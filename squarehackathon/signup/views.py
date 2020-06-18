@@ -3,7 +3,7 @@ from .forms import signupForm
 from django.contrib.auth import login, authenticate
 
 def signup_view(request):
-    form = signupForm(request.POST)
+    form = signupForm(request.POST) 
     if form.is_valid():
         form.save()
         email = form.cleaned_data.get('email')

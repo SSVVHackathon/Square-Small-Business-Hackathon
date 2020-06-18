@@ -123,7 +123,18 @@ CSRF_COOKIE_HTTPONLY = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+AUTH_USER_MODEL = 'signup.MyUser'
+
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'signup.MyUser'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_URL = '/images/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 

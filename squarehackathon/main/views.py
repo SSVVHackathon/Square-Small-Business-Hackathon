@@ -1,19 +1,31 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from .models import *
 from signup.models import *
 from square.client import Client
 import uuid
+from .utils import cartData
 
 
 # Create your views here.
 def home(request):
-    context = {}
+    data = cartData(request=request)
+    if not data:
+        context = {'cartItems': False}
+    else:
+        cartItems = data['cartItems']
+        print(cartItems)
+        context = {}
     return render(request, "home.html", context)
 
-@csrf_exempt
+def order(request):
+    products = Product.objects.all()
+    context = {'products':products}
+    return render(request, "order.html", context)
+
+@csrf_protect
 def process_payment(request):
     data = json.loads(request.body)
     nonce = data['nonce']
