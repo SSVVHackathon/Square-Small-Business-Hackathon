@@ -52,3 +52,26 @@ def process_payment(request):
 
     return JsonResponse('Item was added', safe=False)
 
+@csrf_protect
+def createorder(request):
+    from square.client import Client
+
+    access_token = "EAAAELuuq-CJ1qho_UBpAJrWMlFmA0hTS3s4dKCJOeQa6WmZLsO7PTm-1K-HiGlc"
+
+    client = Client(
+        access_token=access_token,
+        environment="sandbox",
+    )
+
+    orders_api = client.orders
+    location_id = '592Z9CJKVSCYB'
+    body = {}
+    body['idempotency_key'] = 'c043a359-7ad9-4136-82a9-c3f1d66dcbff'
+    body['order'] ={}
+
+    result = orders_api.create_order(location_id, body)
+
+    if result.is_success():
+        print(result.body)
+    elif result.is_error():
+        print(result.errors)
