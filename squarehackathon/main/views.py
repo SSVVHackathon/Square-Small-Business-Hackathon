@@ -50,5 +50,24 @@ def process_payment(request):
     elif api_response.is_error():
         res = "Exception when calling PaymentsApi->create_payment: {}".format(api_response.errors)
 
+    
     return JsonResponse('Item was added', safe=False)
+
+@csrf_protect
+def create_order(request):
+    config_type = "SANDBOX"
+    access_token = "EAAAELuuq-CJ1qho_UBpAJrWMlFmA0hTS3s4dKCJOeQa6WmZLsO7PTm-1K-HiGlc"
+
+    client = Client(
+        access_token=access_token,
+        environment="sandbox",
+    )
+
+    idempotency_key = str(uuid.uuid1())
+
+    location_id = "592Z9CJKVSCYB"
+
+    body = {'idempotency_key': idempotency_key, 'location_id':location_id, 'body': 'hello'}
+
+    order = client.orders.calculate_order(body)
 
