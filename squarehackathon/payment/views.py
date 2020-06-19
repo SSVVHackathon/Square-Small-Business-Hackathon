@@ -2,6 +2,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def checkout(request):
+def payment(request):
     context = {}
-    return render(request, "checkout.html", context)
+    return render(request, "payment.html", context)
