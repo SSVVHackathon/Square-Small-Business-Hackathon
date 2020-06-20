@@ -16,4 +16,5 @@ def signup_view(request):
     else:
         form = signupForm()
 
+    customer, created = Customer.objects.get_or_create(user=user, name=user.name, email=email)
     return render(request, 'signup.html', {'form': form})
