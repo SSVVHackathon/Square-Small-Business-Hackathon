@@ -35,6 +35,15 @@ def cart(request):
     context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'cart.html', context)
 
+def checkout(request):
+    data = cartData(request=request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
+    context = {'items':items, 'order':order, 'cartItems':cartItems, 'shipping':False}
+    return render(request, 'checkout.html', context)
+
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']

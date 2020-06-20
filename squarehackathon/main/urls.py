@@ -7,6 +7,7 @@ urlpatterns = [
     path('payment/process-payment/', process_payment, name="process-payment"),
     path('signup/', signup_views.signup_view, name="signup"),
     path('', home, name="home"),
+    path('checkout/', checkout, name="checkout"),
     path('payment/', payment_views.payment, name="payment"),
     path('', include("django.contrib.auth.urls")),
     path('order', order, name="order"),
