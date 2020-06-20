@@ -39,8 +39,6 @@ class Order(models.Model):
     delivery = models.BooleanField(default=False, null=True, blank=False)
     location = models.CharField(max_length=500, choices=locations, null=True)
 
-    
-
     def __str__(self):
         return str(self.id)
 
