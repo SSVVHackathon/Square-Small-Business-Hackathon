@@ -105,6 +105,7 @@ def processOrder(request):
 @csrf_protect
 def process_payment(request):
     data = json.loads(request.body)
+    amountDue = data['amountDue']
     nonce = data['nonce']
 
     config_type = "SANDBOX"
@@ -117,7 +118,7 @@ def process_payment(request):
 
     idempotency_key = str(uuid.uuid1())
 
-    amount = {'amount': 100, 'currency': 'USD'}
+    amount = {'amount': amountDue, 'currency': 'USD'}
 
     body = {'idempotency_key': idempotency_key, 'source_id': nonce, 'amount_money': amount}
 

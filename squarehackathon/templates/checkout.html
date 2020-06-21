@@ -197,12 +197,6 @@
         document.getElementById('payment-info').classList.remove("hidden");
     })
 
-    /*
-    document.getElementById('make-payment').addEventListener('click', function(e){
-        submitFormData()
-    })
-    */
-
     function submitFormData(){
         console.log('Payment button clicked')
 
@@ -262,10 +256,12 @@
     <div class="third" id="sq-expiration-date"></div>
     <div class="third" id="sq-cvv"></div>
     <div class="third" id="sq-postal-code"></div>
-    <button id="sq-creditcard" class="button-credit-card" onclick="onGetCardNonce(event)">Pay $1.00</button>
+    <button id="sq-creditcard" class="button-credit-card" id="make-payment" onclick="onGetCardNonce(event)">Pay ${{order.get_cart_total|floatformat:2}}</button>
 </div>
 
 <script type="text/javascript">
+
+    var amountDue = "{{order.get_cart_total|floatformat:2}}"*100;
 
     var headers = new Headers();
     headers.append('X-CSRFToken', csrftoken);
@@ -316,7 +312,7 @@
                     url: url,
                     cache: false,
                     type: "POST",
-                    data: JSON.stringify({ 'nonce': nonce }),
+                    data: JSON.stringify({ 'nonce': nonce, 'amountDue': amountDue }),
                     success: function (data) {
                     },
                     beforeSend: function (xhr, settings) {
@@ -333,6 +329,7 @@
     paymentForm.build();
 
     function onGetCardNonce(event) {
+        submitFormData();
         event.preventDefault();
         paymentForm.requestCardNonce();
     }
