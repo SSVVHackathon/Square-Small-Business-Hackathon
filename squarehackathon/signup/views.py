@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from .forms import signupForm
 from django.contrib.auth import login, authenticate
 from main.models import *
+from django.views.decorators.csrf import csrf_protect
 
+@csrf_protect
 def signup_view(request):
     form = signupForm(request.POST) 
     if form.is_valid():
@@ -11,7 +13,8 @@ def signup_view(request):
         password = form.cleaned_data.get('password1')
         user = authenticate(email=email, password=password)
         login(request, user)
-        customer, created = Customer.objects.get_or_create(user=user, name=user.name, email=email)
+        print(request.user, user.name, user.email)
+        Customer.objects.create(user.name)
         return redirect('home')
     else:
         form = signupForm()
