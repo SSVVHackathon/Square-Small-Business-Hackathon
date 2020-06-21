@@ -85,20 +85,20 @@ def processOrder(request):
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
+    order.location = data['location']['location']
+    order.delivery = data['carryoutOrDelivery']['carryoutOrDelivery']  
     if total == order.get_cart_total:
         order.complete = True
     order.save()
 
-    
-    if order.shipping == True:
-        ShippingAddress.objects.create(
-            customer=customer,
-            order=order,
-            address=data['shipping']['address'],
-            city=data['shipping']['city'],
-            state=data['shipping']['state'],
-            zipcode=data['shipping']['zipcode'],
-        )
+    ShippingAddress.objects.create(
+        customer=customer,
+        order=order,
+        address=data['shipping']['address'],
+        city=data['shipping']['city'],
+        state=data['shipping']['state'],
+        zipcode=data['shipping']['zipcode'],
+    )
 
     return JsonResponse('Payment Complete', safe=False)
 
