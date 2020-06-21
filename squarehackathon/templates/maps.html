@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{%block content%}
+{%block body%}
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -56,8 +56,38 @@
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdGZWcX8NeOm5jDClKiQuaLxwCV128Wu8&callback=initMap"
         async defer></script>
+<style>
+    body{
+        background-color:rgb(255, 123, 123) !important;
+    }
+    p {
+    color: black;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+    font-size:20px ;
+    font-style: Arial;
+  }
+  h1{
+    color:black;
+    text-align:right;
+    font-family: "Arial", Arial, sans-serif;
+    font-style: bold;
+    font-size:30px;
+}
+</style>
+<br>
+<h1>
+    Order now by calling ...	847-882-8883
+</h1>
+<br>
+<p>Hot Breads, a unique bakery and cafe, started in Southern India and the fetish for stuffed croissants quickly spread around the world. Now with more than 45 locations in USA, the word Hot Breads is more than just a name familiar to Indians. Hot Breads caters to everyone's taste. From tandoori chicken stuffed croissants to danish pastries, from sweet to spicy, Hot Breads has every treat to please your palette. When it comes to baking, our chefs are dedicated to the highest standards of quality to deliver a fresh fare daily. Our professional bakers and confectioners are skilled in the art of baking and decorating and bring you the most exquisite cakes to match every occasion whether it be a wedding or a birthday. Our goal is to deliver warmth, sincerity, joy to our customers through our menu. Our staff start their day early in the wee hours of the morning, preparing fresh breads and cakes for the morning rush hour crowd that walks in for their breakfast. Our coffee beverages are made using the finest coffee beans...the aroma speaks for itself.Our baristas are experienced in the art of coffee making and are able to prepare not only the traditional lattes and espressos but also some highly popular flavored drinks such as the banana foster mocca and others. At Hot Breads, time stands still. Except for our staff who are working around the clock to make your experience at our bakery pleasant and memorable. </p>
+<br>
+<p>For contact information for our various stores, click the icon on the map above.</p>
+<br>
+<p>Come join us ! Interested in joining our workforce ? Write to us as contact@chicagohotbreads.com</p>
 </body>
-{%endblock content%}
+{%endblock body%}
     <!-- <h1>Restaurants</h1>
     {%for c in companies%}
         {%if c.shelter_or_restaurant == 'Restaurant'%}

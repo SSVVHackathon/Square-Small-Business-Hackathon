@@ -18,7 +18,8 @@ def home(request):
     context = {'cartItems':cartItems, 'shipping':False}
 
     return render(request, "home.html", context)
-
+def contact(request):
+    return render(request,'maps.html')
 def order(request):
     data = cartData(request=request)
     cartItems = data['cartItems']
