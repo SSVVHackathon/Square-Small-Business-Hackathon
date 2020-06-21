@@ -4,7 +4,7 @@ from payment import views as payment_views
 from .views import *
 
 urlpatterns = [
-    path('payment/process-payment/', process_payment, name="process-payment"),
+    path('checkout/process-payment/', process_payment, name="process-payment"),
     path('signup/', signup_views.signup_view, name="signup"),
     path('', home, name="home"),
     path('checkout/', checkout, name="checkout"),
