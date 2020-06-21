@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 {% block body %}
+<style>
+  body{
+    background-color:rgb(255, 123, 123) !important;
+  }
+  p{
+    text-align:center;
+  }
+  button{
+    /*Change the width as much as you like, but make sure 
+    margin-left and margin-right + width = 100%*/
+    width:10%;
+    margin-left:45%;
+    margin-right:45%;
+    background-color:rgb(255, 123, 123);
+    border: 2px solid black;
+    border-radius: 5px;
+}
+form{
+ 
+}
+</style>
 <form method="post">
   {% csrf_token %}
   {% for field in form %}
