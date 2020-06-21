@@ -132,16 +132,33 @@
                     </div>
                 </div>
 
+                <label for="carryoutOrDelivery">Choose Carryout or delivery:</label>
+
+                <select name="carryoutOrDelivery" id="carryoutOrDelivery">
+                    <option value="Carryout">Carryout</option>
+                    <option value="Delivery">Delivery</option>
+                </select>
+
+                <label for="location">Choose a location:</label>
+
+                <select name="location" id="location">
+                    <option value="Hoffman Estates">Hoffman Estates</option>
+                    <option value="Mount Prospect">Mount Prospect</option>
+                    <option value="Naperville">Naperville</option>
+                </select>
+
                 <hr>
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
             </form>
         </div>
-
         <br>
-        <div class="box-element hidden" id="payment-info">
-            <small>Paypal Options</small>
-            <!--<button id="make-payment">Make payment</button>-->
-            <div id="paypal-button-container"></div>
+
+        <div id="form-container">
+            <div id="sq-card-number"></div>
+            <div class="third" id="sq-expiration-date"></div>
+            <div class="third" id="sq-cvv"></div>
+            <div class="third" id="sq-postal-code"></div>
+            <button id="sq-creditcard" class="button-credit-card" id="make-payment" onclick="onGetCardNonce(event)">Pay ${{order.get_cart_total|floatformat:2}}</button>
         </div>
         
     </div>
@@ -174,27 +191,26 @@
 <script type="text/javascript">
     var shipping = '{{order.shipping}}'
 
-    if (shipping == 'False'){
-        document.getElementById('shipping-info').innerHTML = ''
-    }
+    //if (carryoutOrDelivery.carryoutOrDelivery == null || carryoutOrDelivery.carryoutOrDelivery == 'Carryout'){
+      //  document.getElementById('shipping-info').innerHTML = ''
+    //}
 
     if (user != 'AnonymousUser'){
         document.getElementById('user-info').innerHTML = ''
-        }
-
-    if (shipping == 'False' && user != 'AnonymousUser'){
-        //Hide entire form if user is logged in and shipping is false
-            document.getElementById('form-wrapper').classList.add("hidden");
-            //Show payment if logged in user wants to buy an item that does not require shipping
-            document.getElementById('payment-info').classList.remove("hidden");
     }
+
+    //if (carryoutOrDelivery.carryoutOrDelivery == null || carryoutOrDelivery.carryoutOrDelivery == 'Carryout' && user != 'AnonymousUser'){
+        //Hide entire form if user is logged in and shipping is false
+     //       document.getElementById('form-wrapper').classList.add("hidden");
+            //Show payment if logged in user wants to buy an item that does not require shipping
+       //     document.getElementById('payment-info').classList.remove("hidden");
+    //}
 
     var form = document.getElementById('form')
     form.addEventListener('submit', function(e){
         e.preventDefault()
         console.log('Form Submitted...')
         document.getElementById('form-button').classList.add("hidden");
-        document.getElementById('payment-info').classList.remove("hidden");
     })
 
     function submitFormData(){
@@ -213,6 +229,14 @@
             'zipcode':null,
         }
 
+        var carryoutOrDelivery = {
+            'carryoutOrDelivery': null,
+        }
+
+        var location = {
+            'location':null,
+        }
+
         if (shipping != 'False'){
             shippingInfo.address = form.address.value
             shippingInfo.city = form.city.value
@@ -223,6 +247,20 @@
         if (user == 'AnonymousUser'){
             userFormData.name = form.name.value
             userFormData.email = form.email.value
+        }
+
+        carryoutOrDelivery.carryoutOrDelivery = form.carryoutOrDelivery.value;
+        location.location = form.location.value;
+        
+        if (carryoutOrDelivery.carryoutOrDelivery == null || carryoutOrDelivery.carryoutOrDelivery == 'Carryout'){
+            document.getElementById('shipping-info').innerHTML = ''
+        }
+
+        if (carryoutOrDelivery.carryoutOrDelivery == null || carryoutOrDelivery.carryoutOrDelivery == 'Carryout' && user != 'AnonymousUser'){
+            //Hide entire form if user is logged in and shipping is false
+            document.getElementById('form-wrapper').classList.add("hidden");
+            //Show payment if logged in user wants to buy an item that does not require shipping
+            document.getElementById('payment-info').classList.remove("hidden");
         }
 
         console.log('Shipping Info:', shippingInfo)
@@ -251,17 +289,11 @@
             })
     }
 </script>
-<div id="form-container">
-    <div id="sq-card-number"></div>
-    <div class="third" id="sq-expiration-date"></div>
-    <div class="third" id="sq-cvv"></div>
-    <div class="third" id="sq-postal-code"></div>
-    <button id="sq-creditcard" class="button-credit-card" id="make-payment" onclick="onGetCardNonce(event)">Pay ${{order.get_cart_total|floatformat:2}}</button>
-</div>
+
 
 <script type="text/javascript">
 
-    var amountDue = "{{order.get_cart_total|floatformat:2}}"*100;
+    var amountDue = total*100;
 
     var headers = new Headers();
     headers.append('X-CSRFToken', csrftoken);
