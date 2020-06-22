@@ -14,7 +14,7 @@ def signup_view(request):
         user = authenticate(email=email, password=password)
         login(request, user)
         print(request.user, user.name, user.email)
-        Customer.objects.create(user=user, name=user.name, email=user.email)
+        Customer.objects.get_or_create(user=request.user, name=request.user.name, email=request.user.email)
         return redirect('home')
     else:
         form = signupForm()

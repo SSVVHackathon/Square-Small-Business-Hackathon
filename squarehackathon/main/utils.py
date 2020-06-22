@@ -68,10 +68,7 @@ def guestOrder(request, data):
     customer.name = name
     customer.save()
 
-    order = order.objects.create(
-        customer=customer,
-        complete=False,
-    )
+    order = Order.objects.create(customer=customer, complete=False)
 
     for item in items:
         product = Product.objects.get(id=item['product']['id'])

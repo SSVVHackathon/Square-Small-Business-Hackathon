@@ -16,7 +16,6 @@ def home(request):
     cartItems = data['cartItems']
 
     context = {'cartItems':cartItems, 'shipping':False}
-
     return render(request, "home.html", context)
 def contact(request):
     return render(request,'maps.html')
@@ -86,19 +85,14 @@ def processOrder(request):
     order.transaction_id = transaction_id
 
     order.location = data['location']['location']
-    order.delivery = data['carryoutOrDelivery']['carryoutOrDelivery']  
+    order.delivery = data['carryoutOrDelivery']['carryoutOrDelivery']
+    order.address = data['shipping']['address']
+    order.city = data['shipping']['city']
+    order.state=data['shipping']['state']
+    order.zipcode=data['shipping']['zipcode']
     if total == order.get_cart_total:
         order.complete = True
     order.save()
-
-    ShippingAddress.objects.create(
-        customer=customer,
-        order=order,
-        address=data['shipping']['address'],
-        city=data['shipping']['city'],
-        state=data['shipping']['state'],
-        zipcode=data['shipping']['zipcode'],
-    )
 
     return JsonResponse('Payment Complete', safe=False)
 
